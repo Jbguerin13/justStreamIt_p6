@@ -1,9 +1,11 @@
 const ApiUrlTitles = "http://localhost:8000/api/v1/titles/"
 const urlTest = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes";
+const urlMystery = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=mystery"
+const urlAction = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=action"
+const urlComedy = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=comedy"
 
 
-//function to fetch data from url APIrest
-// Fonction pour récupérer les données depuis l'API
+// function to fetch data sort by imdb&votes
 async function loadJsonFromUrl(url) {
     try {
         const response = await fetch(url);
@@ -14,7 +16,7 @@ async function loadJsonFromUrl(url) {
     }
 }
 
-// Fonction pour récupérer l'URL du film par ID
+// fct to fetch the best movie url
 async function getUrlBestMovieById(url) {
     let jsonData = await loadJsonFromUrl(url)
     let movieId = jsonData.results[0].id;
@@ -22,7 +24,7 @@ async function getUrlBestMovieById(url) {
     return movieUrlByID;
 }
 
-// Fonction pour récupérer le json du meilleur film
+// fct to fetch the best movie json
 async function jsonBestMovie() {
     const movieUrlByID = await getUrlBestMovieById(urlTest);
     if (movieUrlByID) {
@@ -32,6 +34,22 @@ async function jsonBestMovie() {
         console.error('Failed to load data');
     }
 }
+
+// Function to fetch the URLs of the 6 best movies
+async function getUrlsSixBestMoviesById(url) {
+    let jsonData = await loadJsonFromUrl(url);
+    let listMovieUrls = [];
+
+    for (let i = 0; i < 6; i++) {
+        let movieId = jsonData.results[i].id;
+        let movieUrlByID = ApiUrlTitles + movieId;
+        movieUrls.push(movieUrlByID);
+    }
+
+    return listMovieUrls;
+}
+
+
 
 const bestMovieJson = await jsonBestMovie()
 console.log(bestMovieJson)

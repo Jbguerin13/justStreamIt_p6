@@ -65,23 +65,91 @@ console.log(bestMovieJson)
 //     .innerHTML = jsonDataBestMovie.description;
 //     }
 
-async function main() {
+// modal window - when click to detail button
 
+// Modal window - when clicking the detail button
+function fetchDataForModalWindow(jsonDataBestMovie) {
+    document.getElementById("modal-cover")
+        .src = jsonDataBestMovie.image_url;
+    document.getElementById("modal-title")
+        .innerHTML = jsonDataBestMovie.title;
+    document.getElementById("modal-year")
+        .innerHTML = jsonDataBestMovie.year;
+    document.getElementById("modal-genres")
+        .innerHTML = jsonDataBestMovie.genres.join(', ');
+    document.getElementById("modal-duration")
+        .innerHTML = jsonDataBestMovie.duration + ' min';
+    document.getElementById("modal-imdb")
+        .innerHTML = `IMDb: ${jsonDataBestMovie.imdb_score}`;
+    document.getElementById("modal-directors")
+        .innerHTML = jsonDataBestMovie.directors.join(', ');
+    document.getElementById("modal-cast")
+        .innerHTML = jsonDataBestMovie.actors.join(', ');
+    document.getElementById("modal-country")
+        .innerHTML = jsonDataBestMovie.countries.join(', ');
+    document.getElementById("modal-box-office")
+        .innerHTML = jsonDataBestMovie.box_office;
+    document.getElementById("modal-desc")
+        .innerHTML = jsonDataBestMovie.long_description;
+    
+    // Display the modal
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex';
 }
-main()
- // setup detailButton
 
-// let detailButton = document.querySelectorAll('button')
-// detailButton.addEventListener("click", function () {console.log("ok button")});
+// Function to close the modal
+function closeModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
 
-//setup selection per genre
+// Add event listener for closing the modal
+document.querySelector('.close').addEventListener('click', closeModal);
+document.getElementById('modal').addEventListener('click', function (e) {
+    if (e.target === document.getElementById('modal')) {
+        closeModal();
+    }
+});
 
+async function main() {
+    // Load best movie and inject data into the page
+    const bestMovieJson = await jsonBestMovie();
+    bestFilmResultMainPage(bestMovieJson);
+
+    // Setup event listener for the detail button
+    document.querySelector('#best-movie button').addEventListener('click', function () {
+        fetchDataForModalWindow(bestMovieJson);
+    });
+}
+
+main();
+
+// Setup selection per genre
 let genresUrl = "http://localhost:8000/api/v1/genres/"
 
-// recup de la liste des genres
+// Fetch the list of genres and populate the genre selection
+async function loadGenres() {
+    let jsonData = await loadJsonFromUrl(genresUrl);
+    let genreList = jsonData.results.map(genre => genre.name);
 
+    // Populate the genre dropdown or list
+    let genreSelect = document.querySelector('#genre-select');
+    genreList.forEach(genre => {
+        let option = document.createElement('option');
+        option.value = genre;
+        option.textContent = genre;
+        genreSelect.appendChild(option);
+    });
+}
 
-//logique de la recuperation du genre via la liste 
-// pour tout name dans results.name
-// if evenement user == name :
-// return name
+// Event listener for genre selection
+document.querySelector('#genre-select').addEventListener('change', async function () {
+    let selectedGenre = this.value;
+    let genreUrl = `${ApiUrlTitles}?sort_by=-imdb_score,-votes&genre=${selectedGenre}`;
+    let genreMovies = await getUrlsSixBestMoviesById(genreUrl);
+
+    // Inject genre movie data into the corresponding section
+    // Implementation similar to `bestFilmResultMainPage`
+});
+
+loadGenres();

@@ -1,94 +1,131 @@
 /* styles.css */
 
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Main rectangle layout */
+.main-rectangle {
+    width: 1054px;
+    height: 4451px;
+    position: absolute;
+    top: -439px;
+    left: -1489px;
+    gap: 0px;
+    border: 1px solid #000000;
+    background: #FFFFFF;
+    opacity: 0px;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+/* Banner content */
+.rectangle-banner {
+    width: 837px;
+    height: 122px;
+    position: absolute;
+    top: -379px;
+    left: -1382px;
+    gap: 0px;
+    border: 1px solid #000000;
+    background: #61787F;
+    opacity: 0px;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+.image-banner {
+    width: 127px;
+    height: 94px;
+    position: absolute;
+    top: -363px;
+    left: -1355px;
+    background: url("image_banner.png");
+    background-size: cover;
+    opacity: 0px;
 }
 
-.header-logo a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.5rem;
+.text-banner-content {
+    width: 514px;
+    height: 51px;
+    position: absolute;
+    top: -343px;
+    left: -1184px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Oswald;
+    font-size: 40px;
+    font-weight: 300;
+    line-height: 59.28px;
+    text-align: left;
+    color: #FFFFFF;
 }
 
-main {
-    padding: 1rem;
+/* Titles layout and typography */
+.title-best-movie,
+.title-cat-1,
+.title-cat-2,
+.title-cat-3,
+.title-other-1,
+.title-other-2 {
+    font-family: Oswald;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 71.14px;
+    text-align: left;
+    color: #000000;
 }
 
-section {
-    margin-bottom: 2rem;
+.title-best-movie {
+    width: 243px;
+    height: 71px;
+    position: absolute;
+    top: -226px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
-h1 {
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    color: #444;
+.title-cat-1 {
+    width: 152px;
+    height: 71px;
+    position: absolute;
+    top: 274px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
-h2 {
-    margin-bottom: 0.5rem;
-    font-size: 1.5rem;
+.title-cat-2 {
+    width: 222px;
+    height: 71px;
+    position: absolute;
+    top: 988px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
-.movie-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+.title-cat-3 {
+    width: 222px;
+    height: 71px;
+    position: absolute;
+    top: 1701px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
-.movie-item {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 1rem;
-    flex: 1 1 calc(33.333% - 2rem);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
+.title-other-1 {
+    width: 139px;
+    height: 71px;
+    position: absolute;
+    top: 2422px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
-.movie-item:hover {
-    transform: scale(1.05);
-}
-
-.movie-image {
-    width: 100%;
-    height: 200px;
-    background: #ccc;
-    margin-bottom: 1rem;
-}
-
-.movie-info {
-    text-align: center;
-}
-
-button {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-button:hover {
-    background: #555;
+.title-other-2 {
+    width: 139px;
+    height: 71px;
+    position: absolute;
+    top: 3248px;
+    left: -1382px;
+    gap: 0px;
+    opacity: 0px;
 }
 
 /* modale window */

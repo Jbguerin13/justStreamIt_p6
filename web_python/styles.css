@@ -1,149 +1,231 @@
-html {
-    scroll-behavior: smooth;
+/* styles.css */
+
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    font-family: "Montserrat", sans-serif;
-    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-
-
-/* Header */
-
-.header {
-    align-items: center;
-    background: linear-gradient(#000000, transparent);
-    display: inline-flex;
-    height: 80px;
-    justify-content: space-between;
-    position: absolute;
-    width: 100%;
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
 }
 
-.header-logo img {
-    margin-left: 20px;
-    margin-top: 10px;
-    width: 70%;
+.header-logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
 }
 
-/* Best movie */
-
-.best {
-    background-image: url(images/pexels-cottonbro-9665187.jpg);
-    background-size: cover;
-    padding: 150px 200px 180px 200px;
+main {
+    padding: 1rem;
 }
 
-.best-movie-title {
-    font-size: 45px;
+section {
+    margin-bottom: 2rem;
 }
 
-.button {
-    font-size: 18px;
-    width: 120px;
+h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #444;
 }
 
-.best-movie-description p {
-    font-style: italic;
-    line-height: 180%;
-    margin-right: 60%;
-    margin-top: 3%;
+h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
 }
 
-.best-cover img {
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
-    float: right;
-    max-width: 280px;
-    min-width: 200px;
-    width: 40%;
-}
-
-
-/* Categories */
-
-.categories {
-    align-items: center;
-    background: linear-gradient(#222222, #111111);
+.movie-list {
     display: flex;
-    height: 600px;
-    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-/* Modal */
+.movie-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    flex: 1 1 calc(33.333% - 2rem);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
 
+.movie-item:hover {
+    transform: scale(1.05);
+}
+
+.movie-image {
+    width: 100%;
+    height: 200px;
+    background: #ccc;
+    margin-bottom: 1rem;
+}
+
+.movie-info {
+    text-align: center;
+}
+
+button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #555;
+}
+
+/* modale window */
 .modal {
-    background-color: rgba(0, 0, 0, 0.6);
     display: none;
-    height: 100%;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #222222;
-    border-radius: 10px;
-    margin: 5% auto;
-    max-width: 1500px;
-    min-height: 350px;
-    padding: 30px 30px 60px 30px;
-    width: 80%;
+    width: 778px;
+    height: 939px;
+    background: #fff;
+    border: 6px solid #000;
+    position: relative;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
 }
 
+/* Movie cover */
 .modal-cover-image img {
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.4);
-    float: right;
-    height: 340px;
-    margin-right: 120px;
-    margin-top: 1%;
+    width: 227px;
+    height: 334px;
 }
 
-.modal-content h3 {
-    display: inline-block;
-    font-size: 24px;
-}
-
-.modal-button {
-    font-size: 14px;
-    margin-left: 30px;
-    width: 80px;
-}
-
-.modal-movie-info {
-    font-size: 15px;
-    margin-left: 30px;
-    margin-right: 40%;
+/* Movie title */
+.modal-movie-title-content {
+    width: 423px;
+    height: 359px;
+    font-family: Oswald, sans-serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 71.14px;
+    text-align: left;
+    color: #000;
 }
 
 .metadata {
-    font-weight: bold;
+    font-family: Oswald, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 35.57px;
+    text-align: left;
+    color: #000;
 }
 
-.modal-content p {
+.metadata .imdb-score {
+    font-weight: 400;
+}
+
+.metadata .director {
+    font-weight: 300;
+}
+
+/* Movie Description */
+.movie-description {
+    width: 698px;
+    height: 457px;
+    font-family: Oswald, sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 35.57px;
+    text-align: left;
+    color: #000;
+}
+
+/* Actors list */
+.movie-actors {
+    width: 692px;
+    height: 248px;
+    font-family: Oswald, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 29.64px;
+    text-align: left;
+    color: #000;
+}
+
+.movie-actors .actor-list {
+    font-weight: 300;
+}
+
+/* close button */
+.close-button {
+    width: 214px;
+    height: 36px;
+    position: absolute;
+    top: 20px; /* Ajuster la position selon les besoins */
+    right: 20px; /* Ajuster la position selon les besoins */
+    padding: 2px 4px;
+    border-radius: 25px 0 0 0;
+    background: #FA0B0B;
+    color: #fff;
+    text-align: center;
+    line-height: 32px; /* Centrer verticalement le texte */
+    font-family: Oswald, sans-serif;
+    font-size: 16px; /* Ajuster la taille du texte selon les besoins */
+    cursor: pointer;
+}
+
+/* main text color */
+.modal-content * {
+    color: #000;
+}
+
+.metadata {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.metadata p {
     display: inline;
-    line-height: 150%;
 }
 
-.genres, strong {
-    color: #caaa76;
+.metadata .genres {
+    display: block;
 }
 
 .plot {
-    font-style: italic;
+    margin-top: 1rem;
 }
 
-.close {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+@media (max-width: 768px) {
+    .movie-item {
+        flex: 1 1 calc(50% - 2rem);
+    }
 }
 
-.close:hover, .close:focus {
-    cursor: pointer;
-    text-decoration: none;
+@media (max-width: 480px) {
+    .movie-item {
+        flex: 1 1 calc(100% - 2rem);
+    }
 }

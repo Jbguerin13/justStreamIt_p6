@@ -65,7 +65,16 @@ console.log(bestMovieJson)
 //     .innerHTML = jsonDataBestMovie.description;
 //     }
 
-// modal window - when click to detail button
+// function populateMovieSelection
+function populateMovieSection(movies, sectionClass) {
+    movies.forEach((movie, index) => {
+        let movieElement = document.querySelector(`.${sectionClass} .cat1-rect${index + 1}`);
+        movieElement.querySelector('.movie-title').innerHTML = movie.title;
+        movieElement.querySelector('.details-button').addEventListener('click', function () {
+            fetchDataForModalWindow(movie);
+        });
+    });
+}
 
 // Modal window - when clicking the detail button
 function fetchDataForModalWindow(jsonDataBestMovie) {
@@ -112,14 +121,24 @@ document.getElementById('modal').addEventListener('click', function (e) {
 });
 
 async function main() {
-    // Load best movie and inject data into the page
     const bestMovieJson = await jsonBestMovie();
     bestFilmResultMainPage(bestMovieJson);
 
-    // Setup event listener for the detail button
     document.querySelector('#best-movie button').addEventListener('click', function () {
         fetchDataForModalWindow(bestMovieJson);
     });
+
+    const urlCat1Movies = await getUrlsSixBestMoviesById(urlMystery);
+    const cat1Movies = await loadMovies(urlCat1Movies);
+    populateMovieSection(cat1Movies, 'layout-cat1');
+
+    const urlCat2Movies = await getUrlsSixBestMoviesById(urlAction);
+    const cat2Movies = await loadMovies(urlCat2Movies);
+    populateMovieSection(cat2Movies, 'layout-cat2');
+
+    const urlCat3Movies = await getUrlsSixBestMoviesById(urlComedy);
+    const cat3Movies = await loadMovies(urlCat3Movies);
+    populateMovieSection(cat3Movies, 'layout-cat3');
 }
 
 main();

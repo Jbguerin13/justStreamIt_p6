@@ -128,6 +128,89 @@
     opacity: 0px;
 }
 
+/* Rectangle Best Movie */
+.rectangle-best-movie {
+    width: 835px;
+    height: 369px;
+    position: absolute;
+    top: -124px;
+    left: -1380px;
+    gap: 0px;
+    border: 6px solid #000000;
+    background: #FFFFFF;
+    opacity: 0px;
+}
+
+/* Cover Best Movie */
+.cover-best-movie {
+    width: 227px;
+    height: 334px;
+    position: absolute;
+    top: -106px;
+    left: -1355px;
+    gap: 0px;
+    opacity: 0px;
+}
+
+/* Title Best Movie */
+.title-best-movie {
+    width: 463px;
+    height: 44px;
+    position: absolute;
+    top: -96px;
+    left: -1092px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Oswald;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 71.14px;
+    text-align: left;
+    color: #000000;
+}
+
+/* Description Best Movie */
+.description-best-movie {
+    width: 501px;
+    height: 113px;
+    position: absolute;
+    top: -10px;
+    left: -1083px;
+    gap: 0px;
+    opacity: 0px;
+    font-family: Oswald;
+    font-size: 28px;
+    font-weight: 200;
+    line-height: 41.5px;
+    text-align: left;
+    color: #000000;
+}
+
+/* Button Details */
+.button-details {
+    width: 166px;
+    height: 68px;
+    position: absolute;
+    top: 130px;
+    left: -762px;
+    padding: 2px 4px;
+    gap: 10px;
+    border-radius: 25px 0px 0px 0px;
+    opacity: 0px;
+    background: #FA0B0B;
+    color: #FFFFFF;
+    font-family: Oswald;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.button-details:hover {
+    background: #E50914;
+}
+
 /* modale window */
 .modal {
     display: none;

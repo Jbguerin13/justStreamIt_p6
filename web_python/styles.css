@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400&display=swap');
+
+/* Setup Body */
+body {
+	font-family: 'Oswald';
+	font-weight: 400;
+	margin: 10rem;
+	padding: 0;
+}
+
+/* Header Banner */
+header .banner {
+	display: flex;
+	justify-content: center;
+	align-items: left;
+	border: 1px solid #000000;
+	background: #61787F;
+}
+
+header .banner img {
+	width: auto;
+}
+
+header .banner h1 {
+	margin: 0 auto;
+	padding: 10px 0;
+	text-align: left;
+	font-weight: 300;
+	color: #FFFFFF;
+}
+
+.section-title {
+    text-align: left;
+	margin-top: 2rem;
+    color: #000000;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Header BestMovie */
+header {
+	background-color: #FFFFFF;
+	text-align: left;
+	padding: 10px 0;
+}
+
+
+header .bestMovieInfo {
+	display: grid;
+    grid-template-columns: 1fr 2fr;
+	align-items: center;
+	gap: 20px;
+	border: 2px solid #000000;
+}
+
+header .bestMovieInfo img {
+    max-width: 100%;
+    height: auto;
+    grid-column: 1 / 2;
+    margin:0 ; /* Apply margin to image */
+	padding: 0;
+}
+
+header .bestMovieInfo .bestMovie {
+	display: grid;
+	grid-template-rows: auto auto auto;
+	align-items: center;
+	max-width: 600px;
+}
+
+header .bestMovieInfo h2 {
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.bestMovieInfo {
+	padding: 40px;
+	margin-top: 5rem;
+}
+
+.header-column-2 p {
+    margin: 10px 0;
+	text-align: left;
+}
+
+/* Buttons */
+.details-btn,
+.see-more-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px; /* Reduced padding for smaller size */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem; /* Adjust font size for smaller button */
+    width: auto; /* Ensure the button is not too wide */
+}
+
+header .bestMovieInfo .bestMovie .details-btn,
+header .bestMovieInfo .bestMovie .see-more-btn {
+    grid-row: 3; /* Adjust if needed */
+    justify-self: right; /* Align to the start of the cell */
+    width: fit-content; /* Ensure the button size is minimal */
+}
+
+/* Categories */
+.categories {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.categories h1 {
+	margin-bottom: 30px;
+}
+
+/* Movies */
+.movies {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: auto auto auto;
+	gap: 20px;
+}
+
+.movies .movie img {
+	width: 182px;
+	height: 268px;
+}
+
+.movies .movie p {
+	width: 182px;
+}
+
+/* Modal */
+.modal-container {
+	visibility: hidden;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	transition: visibility 0.4s;
+}
+
+.overlay {
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #333333d3;
+	transition: opacity 0.3s ease-out;
+}
+
+.modal {
+	text-align: center;
+	margin: auto;
+	opacity: 0;
+	font-size: smaller;
+	width: 80%;
+	height: auto;
+	max-width: 1000px;
+	min-width: 300px;
+	padding: 30px;
+	background: #fff;
+	border-radius: 5px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.close-modal {
+	padding: 8px 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	cursor: pointer;
+	background: #ff365e;
+	color: #fff;
+	z-index: 999;
+}
+
+.modal h1 {
+	margin-bottom: 10px;
+}
+
+.movie-details {
+	margin-top: 20px;
+}
+
+.modal p {
+	line-height: normal;
+}
+
+.modal-container.active {
+	visibility: visible;
+}
+
+.modal-container.active .overlay {
+	opacity: 1;
+	transition: opacity 0.4s 0.2s ease-out;
+}
+
+.modal-container.active .modal {
+	opacity: 1;
+	transition: opacity 0.4s 0.2s ease-out;
+}
+
+.movies .movie img:hover {
+	transform: scale(1.1);
+}
+
+.dropdown {
+	height: 60px;
+	list-style: none;
+	padding: 10px;
+	margin: 40px;
+}
+
+.dropdown li {
+	float: left;
+	width: 200px;
+}
+
+.dropdown li a:link,
+.dropdown li a:visited {
+	display: block;
+	color: #FFFFFF;
+	background: #293245;
+	padding: 6px 10px;
+	border-bestMovie: 1px solid #FFFFFF;
+	text-align: center;
+	text-decoration: none;
+}
+
+.dropdown li a:hover {
+	background-color: #199BD2;
+}
+
+.dropdown li a:active {
+	background-color: #808080;
+}
+
+.dropdown .submenu {
+	list-style-type: none;
+	display: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+}
+
+.dropdown .submenu li {
+	float: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid transparent;
+	border-bestMovie: 1px solid transparent;
+}
+
+.dropdown .submenu li a:link,
+.dropdown li a:visited {
+	display: block;
+	color: #FFFFFF;
+	text-decoration: none;
+	background-color: #808080;
+}
+
+.dropdown .submenu li a:hover {
+	background-color: #199BD2;
+}
+
+.dropdown li:hover .submenu {
+	display: block;
+}
+
+/* Responsive Design */
+
+@media screen and (min-width: 768px) {
+	.see-more-btn {
+		display: none
+	}
+}
+
+@media screen and (max-width: 768px) {
+	nav {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	nav h1 {
+		display: none;
+	}
+
+	.movies .movie:nth-child(n+5) {
+		display: none;
+	}
+
+	.movies.active .movie:nth-child(n+5) {
+		display: block;
+	}
+
+	.movies {
+		grid-template-columns: auto auto;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.movie:nth-child(n+3) {
+		display: none;
+	}
+
+	.movies.active .movie:nth-child(n+3) {
+		display: block;
+	}
+
+	.movies {
+		grid-template-columns: auto;
+	}
+}

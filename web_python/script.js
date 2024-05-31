@@ -1,174 +1,183 @@
-const ApiUrlTitles = "http://localhost:8000/api/v1/titles/"
-const urlTest = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes";
-const urlMystery = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=mystery"
-const urlAction = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=action"
-const urlComedy = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes&genre=comedy"
+// Main urls and cst
+const apiUrlTitles = "http://localhost:8000/api/v1/titles/";
+const MainUrlBestMovie = "http://localhost:8000/api/v1/titles/?sort_by=-imdb_score,-votes";
+const apiUrlGenres = "http://localhost:8000/api/v1/genres/?page_size=30";
+const modalContainer = document.querySelector(".modal-container");
 
-
-// function to fetch data sort by imdb&votes
-async function loadJsonFromUrl(url) {
-    try {
-        const response = await fetch(url);
-        const jsonData = await response.json();
-        return jsonData;
-    } catch (error) {
-        console.error('Erreur lors du chargement des données:', error);
-    }
+// Function to fetch data for modal window
+async function fetchDataForModalWindow(movieUrl) {
+    return fetch(movieUrl)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modal-cover').src = data["image_url"];
+            document.getElementById('modal-title').innerHTML = data["title"];
+            document.getElementById('modal-year').innerHTML = data["year"];
+            document.getElementById('modal-duration').innerHTML = data["duration"] + " min";
+            document.getElementById('modal-genres').innerHTML = data["genres"];
+            document.getElementById('modal-imdb').innerHTML = data["imdb_score"] + " / 10";
+            document.getElementById('modal-rating').innerHTML = data["rated"];
+            document.getElementById('modal-directors').innerHTML = data["directors"];
+            document.getElementById('modal-cast').innerHTML = data["actors"] + "...";
+            document.getElementById('modal-country').innerHTML = data["countries"];
+            document.getElementById('modal-desc').innerHTML = data["long_description"];
+            
+            // worldwide_gross_income is null management
+            let modalBoxOffice = document.getElementById('modal-box-office');
+            if (data["worldwide_gross_income"] == null)
+                modalBoxOffice.innerHTML = "N/A";
+            else
+                modalBoxOffice.innerHTML = data["worldwide_gross_income"] + " " + data["budget_currency"];
+        });
 }
 
-// fct to fetch the best movie url
-async function getUrlBestMovieById(url) {
-    let jsonData = await loadJsonFromUrl(url)
-    let movieId = jsonData.results[0].id;
-    let movieUrlByID = ApiUrlTitles + movieId;
-    return movieUrlByID;
-}
-
-// fct to fetch the best movie json
-async function jsonBestMovie() {
-    const movieUrlByID = await getUrlBestMovieById(urlTest);
-    if (movieUrlByID) {
-        const data = await loadJsonFromUrl(movieUrlByID);
-        return data;
-    } else {
-        console.error('Failed to load data');
-    }
-}
-
-// Function to fetch the URLs of the 6 best movies
-async function getUrlsSixBestMoviesById(url) {
-    let jsonData = await loadJsonFromUrl(url);
-    let listMovieUrls = [];
-
-    for (let i = 0; i < 6; i++) {
-        let movieId = jsonData.results[i].id;
-        let movieUrlByID = ApiUrlTitles + movieId;
-        movieUrls.push(movieUrlByID);
-    }
-
-    return listMovieUrls;
-}
-
-
-
-const bestMovieJson = await jsonBestMovie()
-console.log(bestMovieJson)
-
-// Injection data in HTML Element Best Movie
-
-// function bestFilmResultMainPage(jsonDataBestMovie){
-//     document.getElementById("bestMovie_image_url")
-//     .innerHTML = "<img src=" + jsonDataBestMovie.image_url + "alt='Best Film Image' height='400' width='400'/>";
-//     document.getElementById("bestMovie_title")
-//     .innerHTML = bestMovieJson.title;
-//     document.getElementById("bestFilm__description")
-//     .innerHTML = jsonDataBestMovie.description;
-//     }
-
-// function populateMovieSelection
-function populateMovieSection(movies, sectionClass) {
-    movies.forEach((movie, index) => {
-        let movieElement = document.querySelector(`.${sectionClass} .cat1-rect${index + 1}`);
-        movieElement.querySelector('.movie-title').innerHTML = movie.title;
-        movieElement.querySelector('.details-button').addEventListener('click', function () {
-            fetchDataForModalWindow(movie);
+// Add click event to .modal-triggers elements
+function modalToggleButtons() {
+    const modalTriggers = document.querySelectorAll(".modal-trigger");
+    
+    modalTriggers.forEach(trigger => {
+        trigger.addEventListener("click", () => {
+            getBestMovieDetails(apiUrlTitles);
+            modalContainer.classList.toggle("active"); // Add or remove active class to modal window
         });
     });
 }
+modalToggleButtons();
 
-// Modal window - when clicking the detail button
-function fetchDataForModalWindow(jsonDataBestMovie) {
-    document.getElementById("modal-cover")
-        .src = jsonDataBestMovie.image_url;
-    document.getElementById("modal-title")
-        .innerHTML = jsonDataBestMovie.title;
-    document.getElementById("modal-year")
-        .innerHTML = jsonDataBestMovie.year;
-    document.getElementById("modal-genres")
-        .innerHTML = jsonDataBestMovie.genres.join(', ');
-    document.getElementById("modal-duration")
-        .innerHTML = jsonDataBestMovie.duration + ' min';
-    document.getElementById("modal-imdb")
-        .innerHTML = `IMDb: ${jsonDataBestMovie.imdb_score}`;
-    document.getElementById("modal-directors")
-        .innerHTML = jsonDataBestMovie.directors.join(', ');
-    document.getElementById("modal-cast")
-        .innerHTML = jsonDataBestMovie.actors.join(', ');
-    document.getElementById("modal-country")
-        .innerHTML = jsonDataBestMovie.countries.join(', ');
-    document.getElementById("modal-box-office")
-        .innerHTML = jsonDataBestMovie.box_office;
-    document.getElementById("modal-desc")
-        .innerHTML = jsonDataBestMovie.long_description;
+// Function to display movies
+function displayMovies(category, movieData) {
     
-    // Display the modal
-    const modal = document.getElementById('modal');
-    modal.style.display = 'flex';
-}
-
-// Function to close the modal
-function closeModal() {
-    const modal = document.getElementById('modal');
-    modal.style.display = 'none';
-}
-
-// Add event listener for closing the modal
-document.querySelector('.close').addEventListener('click', closeModal);
-document.getElementById('modal').addEventListener('click', function (e) {
-    if (e.target === document.getElementById('modal')) {
-        closeModal();
+    let limitedMovieData;
+    
+    if (category === "bestOf") {
+        limitedMovieData = movieData.slice(1, 7);
+    } else {
+        limitedMovieData = movieData.slice(0, 6);
     }
-});
 
-async function main() {
-    const bestMovieJson = await jsonBestMovie();
-    bestFilmResultMainPage(bestMovieJson);
+    let targetElement = document.getElementById(category);
 
-    document.querySelector('#best-movie button').addEventListener('click', function () {
-        fetchDataForModalWindow(bestMovieJson);
-    });
+    limitedMovieData.forEach(data => {
+        const imageUrl = data.image_url ? data.image_url : "img/JSI_logo.jpeg";
+        
+        const movieElement = document.createElement("div");
+        movieElement.classList.add("movie");
 
-    const urlCat1Movies = await getUrlsSixBestMoviesById(urlMystery);
-    const cat1Movies = await loadMovies(urlCat1Movies);
-    populateMovieSection(cat1Movies, 'layout-cat1');
+        const imgCover = document.createElement("img");
+        imgCover.src = imageUrl;
+        imgCover.alt = data.original_title;
 
-    const urlCat2Movies = await getUrlsSixBestMoviesById(urlAction);
-    const cat2Movies = await loadMovies(urlCat2Movies);
-    populateMovieSection(cat2Movies, 'layout-cat2');
+        // In case of image loading error, use the logo image
+        imgCover.onerror = function() {
+            this.onerror = null; // Avoid infinite loops
+            this.src = "img/JSI_logo.jpeg";
+        };
 
-    const urlCat3Movies = await getUrlsSixBestMoviesById(urlComedy);
-    const cat3Movies = await loadMovies(urlCat3Movies);
-    populateMovieSection(cat3Movies, 'layout-cat3');
-}
+        const title = document.createElement("p");
+        title.textContent = data.original_title;
 
-main();
+        imgCover.addEventListener('click', () => {
+            let movieUrl = `${apiUrlTitles}${data.id}`;
+            fetchDataForModalWindow(movieUrl);
+            modalContainer.classList.toggle("active");
+        });
 
-// Setup selection per genre
-let genresUrl = "http://localhost:8000/api/v1/genres/"
-
-// Fetch the list of genres and populate the genre selection
-async function loadGenres() {
-    let jsonData = await loadJsonFromUrl(genresUrl);
-    let genreList = jsonData.results.map(genre => genre.name);
-
-    // Populate the genre dropdown or list
-    let genreSelect = document.querySelector('#genre-select');
-    genreList.forEach(genre => {
-        let option = document.createElement('option');
-        option.value = genre;
-        option.textContent = genre;
-        genreSelect.appendChild(option);
+        movieElement.appendChild(imgCover);
+        movieElement.appendChild(title);
+        targetElement.appendChild(movieElement);
     });
 }
 
-// Event listener for genre selection
-document.querySelector('#genre-select').addEventListener('change', async function () {
-    let selectedGenre = this.value;
-    let genreUrl = `${ApiUrlTitles}?sort_by=-imdb_score,-votes&genre=${selectedGenre}`;
-    let genreMovies = await getUrlsSixBestMoviesById(genreUrl);
+// Function to fetch and display movies by category
+function fetchAndDisplayMovies(category) {
+    let url = category === "bestOf" ? `${MainUrlBestMovie}&page_size=7` : `${MainUrlBestMovie}&genre=${category}&page_size=6`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const movieUrls = data.results.map(result => `${apiUrlTitles}${result.id}`);
+            Promise.all(movieUrls.map(url => fetch(url)))
+                .then(responses => Promise.all(responses.map(res => res.json())))
+                .then(movieData => displayMovies(category, movieData))
+                .catch(error => console.error(`Error fetching movie details for category ${category}:`, error));
+        })
+        .catch(error => console.error(`Error fetching movies for category ${category}:`, error));
+}
 
-    // Inject genre movie data into the corresponding section
-    // Implementation similar to `bestFilmResultMainPage`
+// Best movie box
+function getBestMovieDetails(apiUrlTitles) {
+    const bestMovieImg = document.getElementById("bestmovieimg");
+    const titleElement = document.querySelector(".bestMovie h2");
+    const descriptionElement = document.querySelector(".bestMovie p");
+
+    fetch(MainUrlBestMovie)
+        .then(response => response.json())
+        .then(data => {
+            const bestMovie = data.results[0];
+            const bestMovieUrl = `${apiUrlTitles}${bestMovie.id}`;
+
+            fetch(bestMovieUrl)
+                .then(response => response.json())
+                .then(movieDetails => {
+                    bestMovieImg.src = movieDetails.image_url;
+                    titleElement.textContent = movieDetails.title;
+                    descriptionElement.textContent = movieDetails.description;
+                    fetchDataForModalWindow(bestMovieUrl);
+                })
+                .catch(error => console.error('Error fetching movie details:', error));
+        })
+        .catch(error => console.error('Error fetching best movie:', error));
+}
+
+// Fetch best movie data details and displaying movies by category on window load
+let categories = ["mystery", "action", "comedy", "bestOf"];
+
+window.addEventListener('load', () => {
+    getBestMovieDetails(apiUrlTitles);
+
+    categories.forEach(category => {
+        fetchAndDisplayMovies(category);
+    });
 });
 
-loadGenres();
+// Function to update movie list based on selected category
+function updateMoviesByCategory(category) {
+    const targetElement = document.getElementById("categoryChoice");
+    const targetCat = document.getElementsByClassName("movies")[4];
+
+    targetElement.textContent = category;
+
+    targetCat.id = category;
+
+    targetCat.innerHTML = "";
+
+    fetchAndDisplayMovies(category);
+}
+
+// Fetch categories
+async function fetchAndPopulateGenres() {
+    try {
+        const response = await fetch(apiUrlGenres);
+        const data = await response.json();
+
+        const submenu = document.querySelector('.submenu');
+
+        data.results.forEach(genre => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = genre.name;
+            
+            // Add click event to dropdown menu items for each category
+            a.addEventListener('click', (event) => {
+                event.preventDefault();
+                updateMoviesByCategory(genre.name);
+            });
+            
+            li.appendChild(a);
+            submenu.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Erreur lors de la récupération des catégories :', error);
+    }
+}
+
+window.addEventListener('load', fetchAndPopulateGenres);

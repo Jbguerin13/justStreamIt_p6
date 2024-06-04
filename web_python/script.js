@@ -15,7 +15,7 @@ async function fetchDataForModalWindow(movieUrl) {
             document.getElementById('modal-duration').innerHTML = data["duration"] + " min";
             document.getElementById('modal-genres').innerHTML = data["genres"];
             document.getElementById('modal-imdb').innerHTML = data["imdb_score"] + " / 10";
-            document.getElementById('modal-rating').innerHTML = data["rated"];
+            //document.getElementById('modal-rating').innerHTML = data["rated"];
             document.getElementById('modal-directors').innerHTML = data["directors"];
             document.getElementById('modal-cast').innerHTML = data["actors"] + "...";
             document.getElementById('modal-country').innerHTML = data["countries"];
@@ -134,7 +134,7 @@ window.addEventListener('load', () => {
 // Function to update movie list based on selected category
 function updateMoviesByCategory(category) {
     const targetElement = document.getElementById("categoryChoice");
-    const targetCat = document.getElementsByClassName("movies")[4];
+    const targetCat = document.getElementsByClassName("movies")[3];
 
     targetElement.textContent = category;
 
@@ -161,9 +161,10 @@ async function fetchAndPopulateGenres() {
             
             // Add click event to dropdown menu items for each category
             a.addEventListener('click', (event) => {
-                event.preventDefault();
-                updateMoviesByCategory(genre.name);
+                 event.preventDefault();
+                 updateMoviesByCategory(genre.name);
             });
+			//a.setAttribute("onclick", "updateMoviesByCategory('"+genre.name+"')")
             
             li.appendChild(a);
             submenu.appendChild(li);

@@ -23,6 +23,7 @@ header .banner img {
 
 header .banner h1 {
 	margin: 0 auto;
+    margin-left: 2rem;
 	padding: 10px 0;
 	text-align: left;
 	font-weight: 300;
@@ -75,7 +76,7 @@ header .bestMovieInfo h2 {
 
 .bestMovieInfo {
 	padding: 40px;
-	margin-top: 5rem;
+	margin-top: 1rem;
 }
 
 .header-column-2 p {
@@ -89,18 +90,18 @@ header .bestMovieInfo h2 {
     background-color: red;
     color: white;
     border: none;
-    padding: 5px 10px; /* Reduced padding for smaller size */
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.8rem; /* Adjust font size for smaller button */
-    width: auto; /* Ensure the button is not too wide */
+    font-size: 0.8rem;
+    width: auto; 
 }
 
 header .bestMovieInfo .bestMovie .details-btn,
 header .bestMovieInfo .bestMovie .see-more-btn {
-    grid-row: 3; /* Adjust if needed */
-    justify-self: right; /* Align to the start of the cell */
-    width: fit-content; /* Ensure the button size is minimal */
+    grid-row: 3;
+    justify-self: right;
+    width: fit-content;
 }
 
 /* Categories */
@@ -111,6 +112,7 @@ header .bestMovieInfo .bestMovie .see-more-btn {
 
 .categories h1 {
 	margin-bottom: 30px;
+    text-align: left;
 }
 
 /* Movies */
@@ -131,13 +133,13 @@ header .bestMovieInfo .bestMovie .see-more-btn {
 }
 
 /* Modal */
+
 .modal-container {
 	visibility: hidden;
 	position: fixed;
 	top: 0;
 	width: 100vw;
 	height: 100vh;
-	transition: visibility 0.4s;
 }
 
 .overlay {
@@ -145,66 +147,83 @@ header .bestMovieInfo .bestMovie .see-more-btn {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: #333333d3;
-	transition: opacity 0.3s ease-out;
 }
 
 .modal {
-	text-align: center;
-	margin: auto;
-	opacity: 0;
-	font-size: smaller;
-	width: 80%;
-	height: auto;
-	max-width: 1000px;
-	min-width: 300px;
-	padding: 30px;
-	background: #fff;
-	border-radius: 5px;
+    width: 70%;
+    margin: auto;
+    height: 80%;
+    border: solid;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+	opacity: 1;
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(0%, 10%);
+	background: white;
 }
 
-.close-modal {
-	padding: 8px 10px;
-	border: none;
-	border-radius: 5px;
-	font-size: 18px;
-	position: fixed;
-	top: 20px;
-	left: 20px;
-	cursor: pointer;
-	background: #ff365e;
-	color: #fff;
-	z-index: 999;
-}
-
-.modal h1 {
-	margin-bottom: 10px;
-}
-
-.movie-details {
-	margin-top: 20px;
-}
-
-.modal p {
-	line-height: normal;
+.modal-header {
+    display: flex;
+    justify-content: space-between;
 }
 
 .modal-container.active {
 	visibility: visible;
+	opacity: 1;
 }
 
 .modal-container.active .overlay {
 	opacity: 1;
-	transition: opacity 0.4s 0.2s ease-out;
 }
 
 .modal-container.active .modal {
 	opacity: 1;
-	transition: opacity 0.4s 0.2s ease-out;
+}
+
+.close-modal-button {
+    width: 13%;
+    margin: auto;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+}
+
+.modal-tablet-cover-image, .close-modal-tablet-button {
+    display: none;       
+}
+
+.modal-header-info p {
+    margin: 5px 0px;
+}
+
+@media screen and (max-width: 900px) {
+    .modal-header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-cover-image, .close-modal-button {
+        display: none;
+    }
+
+    .modal-tablet-cover-image {
+        display: inline;
+        margin: auto;
+    }
+
+    .close-modal-tablet-button {
+        all: unset;
+        display: block;
+        position: absolute;
+        right: 16%;
+        top: 3%;
+    }
+    .close-modal-tablet-button svg path {
+        stroke: red;
+    }
 }
 
 .movies .movie img:hover {
@@ -302,6 +321,7 @@ header .bestMovieInfo .bestMovie .see-more-btn {
 
 	.movies {
 		grid-template-columns: auto auto;
+
 	}
 }
 

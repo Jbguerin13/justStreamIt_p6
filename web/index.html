@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JustStreamIt</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?action=Coustard&action=Handlee&action=Syne+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <section class="banner">
+        <img src="img/JSI_logo.jpeg" alt="Just Stream It Logo" height="60">
+        <h1>Video On Demand</h1>
+    </section>
+    <h2 class="section-title">Best Movie</h2>
+    <section id="bestMovie">
+        <div class="bestMovieInfo">
+            <div class="bestmovieimg">
+                <img src="img/JSI_logo.jpeg" alt="Best Movie" id="bestmovieimg">
+            </div>
+            <div class="bestMovie">
+                <h2>Title</h2>
+                <p>Description</p>
+                <button class="details-btn modal-trigger">Details</button>
+            </div>
+        </div>
+    </section>
+</header>
+
+<section class="categories">
+    <h1>Mystery</h1>
+    <div class="movies" id="mystery"></div>
+
+    <h1>Action</h1>
+    <div class="movies" id="action"></div>
+
+    <h1>Comedy</h1>
+    <div class="movies" id="comedy"></div>
+
+    <h1 id="categoryChoice">Choose a Category</h1>
+    <ul class="dropdown">
+        <li><a href="#">Category</a>
+            <ul class="submenu"></ul>
+        </li>
+    </ul>
+    <div class="movies" id="dynamic"></div>
+
+</section>
+<div class="modal-container">
+    <div class="overlay modal-trigger"></div>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <div>
+                    <h2 class="title modal-title" id="modal-title">Notuku Potu</h2>
+                    <p>
+                        <span id="modal-year">2017</span>
+                        <span id="modal-genres">Horror,Mystery</span>
+                    </p>
+                    <p>
+                        <span id="modal-box-office">N/A</span>
+                        <span id="modal-duration">121 min</span>
+                        (<span id="modal-country">India</span>)
+                    </p>
+                    <p>
+                        <span id="modal-imdb">9.6 / 10</span>
+                    </p>
+                </div>
+                <div>
+                    <h3>Réalisé par :</h3>
+                    <p><span id="modal-directors">Basheed S.K.</span></p>
+                </div>
+            </div>
+            <div class="modal-cover-image">
+                <img src="https://m.media-amazon.com/images/M/MV5BZDMwODgwOGItNTJjNS00NDk2LTlkYzEtYzRjOTU5YTBlZGY5XkEyXkFqcGdeQXVyNTM3MDMyMDQ@._V1_UY268_CR9,0,182,268_AL_.jpg" alt="movie cover" id="modal-cover">
+            </div>
+        </div>
+        <div class="movie-details">
+            <p id="modal-desc">Notuku Potu is a crime story laced with elements of horror and thrill. The story is about a man who, after the death of a woman, is pulled into a world of mystery and conspiracy.</p>
+        </div>
+        <div class="modal-tablet-cover-image">
+            <img src="https://m.media-amazon.com/images/M/MV5BZDMwODgwOGItNTJjNS00NDk2LTlkYzEtYzRjOTU5YTBlZGY5XkEyXkFqcGdeQXVyNTM3MDMyMDQ@._V1_UY268_CR9,0,182,268_AL_.jpg" alt="movie cover" id="modal-cover">
+        </div>
+        <div class="movie-details">
+            <h3>Avec :</h3>
+            <p id="modal-cast">Arjun Sarja,Manisha Koirala,Mumait Khan...</p>
+        </div>
+        <button class="close-modal-button modal-trigger">Close</button>
+        <button class="close-modal-tablet-button modal-trigger">
+            <svg width="40" height="40" viewbox="0 0 40 40"><path d="M 10,10 L 30,30 M 30,10 L 10,30" stroke-width="4" /></svg>
+        </button>
+    </div>
+</div>
+</body>
+</html>

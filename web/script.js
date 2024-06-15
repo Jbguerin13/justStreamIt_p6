@@ -15,7 +15,7 @@ async function fetchDataForModalWindow(movieUrl) {
             document.getElementById('modal-duration').innerHTML = data["duration"] + " min";
             document.getElementById('modal-genres').innerHTML = data["genres"];
             document.getElementById('modal-imdb').innerHTML = data["imdb_score"] + " / 10";
-            document.getElementById('modal-rating').innerHTML = data["rated"];
+            //document.getElementById('modal-rating').innerHTML = data["rated"];
             document.getElementById('modal-directors').innerHTML = data["directors"];
             document.getElementById('modal-cast').innerHTML = data["actors"] + "...";
             document.getElementById('modal-country').innerHTML = data["countries"];
@@ -43,16 +43,10 @@ function modalToggleButtons() {
 }
 modalToggleButtons();
 
-// Function to display movies
+// Function to display 6 best movies
 function displayMovies(category, movieData) {
     
-    let limitedMovieData;
-    
-    if (category === "bestOf") {
-        limitedMovieData = movieData.slice(1, 7);
-    } else {
-        limitedMovieData = movieData.slice(0, 6);
-    }
+    let limitedMovieData = movieData.slice(0, 6);
 
     let targetElement = document.getElementById(category);
 
@@ -66,9 +60,8 @@ function displayMovies(category, movieData) {
         imgCover.src = imageUrl;
         imgCover.alt = data.original_title;
 
-        // In case of image loading error, use the logo image
         imgCover.onerror = function() {
-            this.onerror = null; // Avoid infinite loops
+            this.onerror = null;
             this.src = "img/JSI_logo.jpeg";
         };
 
@@ -89,7 +82,7 @@ function displayMovies(category, movieData) {
 
 // Function to fetch and display movies by category
 function fetchAndDisplayMovies(category) {
-    let url = category === "bestOf" ? `${MainUrlBestMovie}&page_size=7` : `${MainUrlBestMovie}&genre=${category}&page_size=6`;
+    let url = `${MainUrlBestMovie}&genre=${category}&page_size=6`;
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -102,7 +95,7 @@ function fetchAndDisplayMovies(category) {
         .catch(error => console.error(`Error fetching movies for category ${category}:`, error));
 }
 
-// Best movie box
+// Fetch Data of the best movie
 function getBestMovieDetails(apiUrlTitles) {
     const bestMovieImg = document.getElementById("bestmovieimg");
     const titleElement = document.querySelector(".bestMovie h2");
@@ -127,8 +120,8 @@ function getBestMovieDetails(apiUrlTitles) {
         .catch(error => console.error('Error fetching best movie:', error));
 }
 
-// Fetch best movie data details and displaying movies by category on window load
-let categories = ["mystery", "action", "comedy", "bestOf"];
+// Fetch best movie data details and display movies by category on window load
+let categories = ["mystery", "action", "comedy"];
 
 window.addEventListener('load', () => {
     getBestMovieDetails(apiUrlTitles);
@@ -141,7 +134,7 @@ window.addEventListener('load', () => {
 // Function to update movie list based on selected category
 function updateMoviesByCategory(category) {
     const targetElement = document.getElementById("categoryChoice");
-    const targetCat = document.getElementsByClassName("movies")[4];
+    const targetCat = document.getElementsByClassName("movies")[3];
 
     targetElement.textContent = category;
 
@@ -152,7 +145,7 @@ function updateMoviesByCategory(category) {
     fetchAndDisplayMovies(category);
 }
 
-// Fetch categories
+// Fetch populatecategories
 async function fetchAndPopulateGenres() {
     try {
         const response = await fetch(apiUrlGenres);
@@ -168,9 +161,10 @@ async function fetchAndPopulateGenres() {
             
             // Add click event to dropdown menu items for each category
             a.addEventListener('click', (event) => {
-                event.preventDefault();
-                updateMoviesByCategory(genre.name);
+                 event.preventDefault();
+                 updateMoviesByCategory(genre.name);
             });
+			//a.setAttribute("onclick", "updateMoviesByCategory('"+genre.name+"')")
             
             li.appendChild(a);
             submenu.appendChild(li);

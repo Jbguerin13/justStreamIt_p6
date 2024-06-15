@@ -220,7 +220,7 @@ header .bestMovieInfo .bestMovie .see-more-btn {
 .dropdown li a:visited {
 	display: block;
 	color: #000000;
-	background: #293245;
+	background: white;
 	padding: 6px 10px;
 	border-bestMovie: 1px solid #FFFFFF;
 	text-align: center;
